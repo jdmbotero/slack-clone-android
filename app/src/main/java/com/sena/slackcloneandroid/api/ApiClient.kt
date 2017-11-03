@@ -1,7 +1,6 @@
 package com.sena.slackcloneandroid.api
 
 import com.google.gson.GsonBuilder
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,15 +12,12 @@ object ApiClient {
 
     fun getClient(baseUrl: String): Retrofit? {
         if (retrofit == null) {
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
-            val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
-            client.networkInterceptors().add(Interceptor { chain ->
-                val requestBuilder = chain.request().newBuilder()
-                requestBuilder.header("Content-Type", "application/vnd.api+json")
-                chain.proceed(requestBuilder.build())
-            })
+            val loggingInterceptor = HttpLoggingInterceptor()
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+            val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
+            client.networkInterceptors().add(ApiInterceptor())
 
             val builder = GsonBuilder()
             val gson = builder.create()
