@@ -44,13 +44,21 @@
             android:hint="@string/password"
             android:inputType="textPassword" />
 
+        <EditText
+            android:id="@+id/textPasswordRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/password_repeat"
+            android:inputType="textPassword" />
+
         <Button
             android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:background="@color/colorPrimary"
-            android:text="@string/button_register"
+            android:text="@string/register"
             android:textColor="@color/colorPrimaryText" />
 
     </LinearLayout>

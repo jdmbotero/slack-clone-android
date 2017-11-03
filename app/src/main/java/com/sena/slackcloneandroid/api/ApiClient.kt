@@ -8,9 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
+    public var baseUrl: String = ""
     private var retrofit: Retrofit? = null
 
-    fun getClient(baseUrl: String): Retrofit? {
+    fun getClient(): Retrofit? {
         if (retrofit == null) {
 
             val loggingInterceptor = HttpLoggingInterceptor()
