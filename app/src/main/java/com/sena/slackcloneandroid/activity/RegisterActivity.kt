@@ -45,9 +45,9 @@ class RegisterActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Json<User>>, response: Response<Json<User>>) {
                 loading!!.dismiss()
                 if (response.isSuccessful) {
-                    Toast.makeText(this@RegisterActivity, "Register successful", Toast.LENGTH_LONG)
+                    Toast.makeText(this@RegisterActivity, "Register successful", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(this@RegisterActivity, "Error in the request", Toast.LENGTH_LONG)
+                    Toast.makeText(this@RegisterActivity, "Error in the request", Toast.LENGTH_LONG).show()
                 }
             }
 
