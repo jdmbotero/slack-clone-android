@@ -17,8 +17,9 @@ object ApiClient {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-            val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
-            client.networkInterceptors().add(ApiInterceptor())
+            val client = OkHttpClient.Builder()
+                    .addInterceptor(ApiInterceptor())
+                    .addInterceptor(loggingInterceptor).build()
 
             val builder = GsonBuilder()
             val gson = builder.create()

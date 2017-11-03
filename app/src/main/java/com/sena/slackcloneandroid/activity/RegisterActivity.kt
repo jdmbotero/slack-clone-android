@@ -1,8 +1,11 @@
 package com.sena.slackcloneandroid.activity
 
 import android.app.ProgressDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.sena.slackcloneandroid.R
 import com.sena.slackcloneandroid.api.ApiClient
 import com.sena.slackcloneandroid.api.endpoint.UserInterface
@@ -10,11 +13,14 @@ import com.sena.slackcloneandroid.model.Data
 import com.sena.slackcloneandroid.model.Json
 import com.sena.slackcloneandroid.model.User
 import kotlinx.android.synthetic.main.activity_register.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class RegisterActivity : AppCompatActivity() {
 
-    var dialog: ProgressDialog? = null
+    var loading: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +38,24 @@ class RegisterActivity : AppCompatActivity() {
         val newUser = User(textUsername.text.toString(), textEmail.text.toString(),
                 textPassword.text.toString(), "")
 
-        ApiClient.getClient()!!.create(UserInterface::class.java)
+        val call = ApiClient.getClient()!!.create(UserInterface::class.java)
                 .post(Json(Data("users", newUser)))
+
+        call.enqueue(object : Callback<Json<User>> {
+            override fun onResponse(call: Call<Json<User>>, response: Response<Json<User>>) {
+                loading!!.dismiss()
+                if (response.isSuccessful) {
+                    Toast.makeText(this@RegisterActivity, "Register successful", Toast.LENGTH_LONG)
+                } else {
+                    Toast.makeText(this@RegisterActivity, "Error in the request", Toast.LENGTH_LONG)
+                }
+            }
+
+            override fun onFailure(call: Call<Json<User>>, t: Throwable) {
+                loading!!.dismiss()
+                t.printStackTrace()
+            }
+        })
     }
 
     private fun validateRegister(): Boolean {
@@ -55,7 +77,14 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        dialog = ProgressDialog.show(this, "Loading",
+        loading = ProgressDialog.show(this, "Loading",
                 "Loading. Please wait...", true)
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            val intent = Intent(context, RegisterActivity::class.java)
+            return intent
+        }
     }
 }
