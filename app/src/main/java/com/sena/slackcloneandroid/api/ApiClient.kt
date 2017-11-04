@@ -1,14 +1,15 @@
 package com.sena.slackcloneandroid.api
 
-import com.google.gson.GsonBuilder
+import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
+
 
 object ApiClient {
 
-    public var baseUrl: String = ""
+    var baseUrl: String = ""
     private var retrofit: Retrofit? = null
 
     fun getClient(): Retrofit? {
@@ -21,11 +22,10 @@ object ApiClient {
                     .addInterceptor(ApiInterceptor())
                     .addInterceptor(loggingInterceptor).build()
 
-            val builder = GsonBuilder()
-            val gson = builder.create()
+            val moshi = Moshi.Builder().build()
             retrofit = Retrofit.Builder()
                     .baseUrl(baseUrl)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addConverterFactory(MoshiConverterFactory.create(moshi))
                     .client(client)
                     .build()
         }

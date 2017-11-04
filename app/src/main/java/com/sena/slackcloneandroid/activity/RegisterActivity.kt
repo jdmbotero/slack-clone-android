@@ -26,6 +26,10 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        buttonLogin.setOnClickListener {
+            finish()
+        }
+
         buttonRegister.setOnClickListener {
             register()
         }
@@ -43,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
 
         call.enqueue(object : Callback<Json<User>> {
             override fun onResponse(call: Call<Json<User>>, response: Response<Json<User>>) {
-                loading!!.dismiss()
+                goneLoading()
                 if (response.isSuccessful) {
                     Toast.makeText(this@RegisterActivity, "Register successful", Toast.LENGTH_LONG).show()
                 } else {
@@ -52,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Json<User>>, t: Throwable) {
-                loading!!.dismiss()
+                goneLoading()
                 t.printStackTrace()
             }
         })
@@ -79,6 +83,14 @@ class RegisterActivity : AppCompatActivity() {
     private fun showLoading() {
         loading = ProgressDialog.show(this, "Loading",
                 "Loading. Please wait...", true)
+    }
+
+    private fun goneLoading() {
+        if (null != loading) {
+            runOnUiThread({
+                loading!!.dismiss()
+            })
+        }
     }
 
     companion object {

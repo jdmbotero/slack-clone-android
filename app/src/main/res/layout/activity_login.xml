@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sena.slackcloneandroid.activity.RegisterActivity">
+    tools:context="com.sena.slackcloneandroid.activity.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register"
+            android:text="@string/login"
             android:textSize="28sp" />
 
         <EditText
@@ -28,14 +28,6 @@
             android:hint="@string/username" />
 
         <EditText
-            android:id="@+id/textEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress" />
-
-        <EditText
             android:id="@+id/textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,23 +35,14 @@
             android:hint="@string/password"
             android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/textPasswordRepeat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="@string/password_repeat"
-            android:inputType="textPassword" />
-
         <Button
-            android:id="@+id/buttonRegister"
+            android:id="@+id/buttonLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:background="@color/colorPrimary"
-            android:text="@string/register"
+            android:text="@string/login"
             android:textColor="@color/colorPrimaryText" />
-
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -70,17 +53,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sign_in_question" />
+                android:text="@string/sign_up_question" />
 
             <Button
-                android:id="@+id/buttonLogin"
+                android:id="@+id/buttonRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
                 android:padding="10dp"
-                android:text="@string/login"
+                android:text="@string/register"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary" />
 
