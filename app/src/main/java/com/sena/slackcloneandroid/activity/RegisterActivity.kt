@@ -10,7 +10,7 @@ import com.sena.slackcloneandroid.R
 import com.sena.slackcloneandroid.api.ApiClient
 import com.sena.slackcloneandroid.api.endpoint.UserInterface
 import com.sena.slackcloneandroid.model.Data
-import com.sena.slackcloneandroid.model.Json
+import com.sena.slackcloneandroid.model.JsonObject
 import com.sena.slackcloneandroid.model.User
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
@@ -43,10 +43,10 @@ class RegisterActivity : AppCompatActivity() {
                 textPassword.text.toString(), "")
 
         val call = ApiClient.getClient()!!.create(UserInterface::class.java)
-                .post(Json(Data("users", newUser)))
+                .post(JsonObject(Data("users", newUser)))
 
-        call.enqueue(object : Callback<Json<User>> {
-            override fun onResponse(call: Call<Json<User>>, response: Response<Json<User>>) {
+        call.enqueue(object : Callback<JsonObject<User>> {
+            override fun onResponse(call: Call<JsonObject<User>>, response: Response<JsonObject<User>>) {
                 goneLoading()
                 if (response.isSuccessful) {
                     Toast.makeText(this@RegisterActivity, "Register successful", Toast.LENGTH_LONG).show()
@@ -55,7 +55,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Json<User>>, t: Throwable) {
+            override fun onFailure(call: Call<JsonObject<User>>, t: Throwable) {
                 goneLoading()
                 t.printStackTrace()
             }
