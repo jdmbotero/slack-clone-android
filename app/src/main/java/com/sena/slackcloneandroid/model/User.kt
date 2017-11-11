@@ -1,9 +1,27 @@
 package com.sena.slackcloneandroid.model
 
-class User(username: String, email: String, password: String, photo: String) {
+import com.google.gson.annotations.SerializedName
 
-    var username: String? = username
-    var email: String? = email
-    var password: String? = password
-    var photo: String? = photo
+class User {
+    constructor(username: String, email: String, password: String, photoUrl: String) {
+        this.username = username
+        this.email = email
+        this.password = password
+        this.photoUrl = photoUrl
+    }
+
+    constructor(username: String, password: String)  {
+        this.username = username
+        this.password = password
+    }
+
+    var id: String? = null
+    var username: String? = null
+    var email: String? = null
+    var password: String? = null
+
+    @SerializedName("photo-url")
+    var photoUrl: String? = null
+
+    var token: String? = null
 }
