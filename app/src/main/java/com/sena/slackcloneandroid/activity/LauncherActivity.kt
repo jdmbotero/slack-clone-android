@@ -18,6 +18,6 @@ class LauncherActivity : AppCompatActivity() {
         Handler().postDelayed({
             startActivity(LoginActivity.newIntent(this))
             finish()
-        }, 1200)
+        }, 1800)
     }
 }

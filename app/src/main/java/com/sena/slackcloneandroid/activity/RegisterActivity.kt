@@ -17,7 +17,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class RegisterActivity : AppCompatActivity() {
 
     var loading: ProgressDialog? = null
@@ -42,8 +41,11 @@ class RegisterActivity : AppCompatActivity() {
         val newUser = User(textUsername.text.toString(), textEmail.text.toString(),
                 textPassword.text.toString(), "")
 
+        val data = Data("users", newUser)
+        val jsonObject = JsonObject(data)
+
         val call = ApiClient.getClient()!!.create(UserInterface::class.java)
-                .post(JsonObject(Data("users", newUser)))
+                .post(jsonObject)
 
         call.enqueue(object : Callback<JsonObject<User>> {
             override fun onResponse(call: Call<JsonObject<User>>, response: Response<JsonObject<User>>) {
@@ -66,7 +68,7 @@ class RegisterActivity : AppCompatActivity() {
         var isValid = true
         val fields = arrayOf(textUsername, textEmail, textPassword, textPasswordRepeat)
         fields.forEach { field ->
-            if ("" == field.text.toString()) {
+            if (field.text.toString().isEmpty()) {
                 isValid = false
                 field.error = "This Field is required"
             }

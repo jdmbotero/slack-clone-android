@@ -18,6 +18,10 @@ interface UserInterface {
     fun get(): Call<JsonArray<User>>
 
     @Headers("Content-Type: application/vnd.api+json")
+    @GET("users/{id}")
+    fun get(@Path("id") id: String): Call<JsonObject<User>>
+
+    @Headers("Content-Type: application/vnd.api+json")
     @PUT("users/{id}")
     fun put(@Path("id") id: String, @Body json: JsonObject<User>): Call<JsonObject<User>>
 
