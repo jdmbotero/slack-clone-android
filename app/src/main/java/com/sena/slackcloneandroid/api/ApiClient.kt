@@ -31,4 +31,9 @@ object ApiClient {
         return retrofit
     }
 
+    fun getClient(token: String): Retrofit? {
+        ApiInterceptor.token = token
+        return getClient()
+    }
+
 }

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.sena.slackcloneandroid.App
 import com.sena.slackcloneandroid.R
 import com.sena.slackcloneandroid.api.ApiClient
 import com.sena.slackcloneandroid.api.endpoint.AuthInterface
@@ -32,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun login() {
+    private fun login() {
         if (!validateLogin()) return
         showLoading()
 
@@ -44,6 +45,8 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 goneLoading()
                 if (response.isSuccessful) {
+                    val user = response.body()
+                    (application as App).preferences!!.setUser(user)
                     Toast.makeText(this@LoginActivity, "login successful", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this@LoginActivity, "Error in the request", Toast.LENGTH_LONG).show()

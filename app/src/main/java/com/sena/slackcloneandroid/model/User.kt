@@ -1,5 +1,6 @@
 package com.sena.slackcloneandroid.model
 
+import com.google.gson.Gson
 import com.squareup.moshi.Json
 
 class User {
@@ -25,4 +26,14 @@ class User {
     var photoUrl: String? = null
 
     var token: String? = null
+
+    override fun toString(): String {
+        return Gson().toJson(this)
+    }
+
+    companion object {
+        fun fromString(user: String): User {
+            return Gson().fromJson<User>(user, User::class.java)
+        }
+    }
 }
