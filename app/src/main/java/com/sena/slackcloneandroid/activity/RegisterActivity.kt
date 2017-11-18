@@ -1,11 +1,12 @@
 package com.sena.slackcloneandroid.activity
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeProgressDialog
+import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeSuccessDialog
 import com.sena.slackcloneandroid.R
 import com.sena.slackcloneandroid.api.ApiClient
 import com.sena.slackcloneandroid.api.endpoint.UserInterface
@@ -17,9 +18,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class RegisterActivity : AppCompatActivity() {
 
-    var loading: ProgressDialog? = null
+    private var loading: AwesomeProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +53,7 @@ class RegisterActivity : AppCompatActivity() {
             override fun onResponse(call: Call<JsonObject<User>>, response: Response<JsonObject<User>>) {
                 goneLoading()
                 if (response.isSuccessful) {
-                    Toast.makeText(this@RegisterActivity, "Register successful", Toast.LENGTH_LONG).show()
+                    showDialogSuccess()
                 } else {
                     Toast.makeText(this@RegisterActivity, "Error in the request", Toast.LENGTH_LONG).show()
                 }
@@ -83,14 +85,39 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        loading = ProgressDialog.show(this, "Loading",
-                "Loading. Please wait...", true)
+        loading = AwesomeProgressDialog(this)
+                .setTitle("Register")
+                .setMessage("Loading...")
+                .setColoredCircle(R.color.colorPrimary)
+                .setDialogIconAndColor(R.drawable.ic_dialog_info, R.color.white)
+                .setCancelable(false)
+
+        loading!!.show()
+    }
+
+    private fun showDialogSuccess() {
+        AwesomeSuccessDialog(this)
+                .setTitle(R.string.register)
+                .setMessage("Register successful...")
+                .setColoredCircle(R.color.colorPrimary)
+                .setDialogIconAndColor(R.drawable.ic_dialog_info, R.color.white)
+                .setCancelable(true)
+                .setPositiveButtonText(getString(R.string.dialog_ok_button))
+                .setPositiveButtonbackgroundColor(R.color.colorPrimary)
+                .setPositiveButtonTextColor(R.color.white)
+                .setPositiveButtonClick {
+                    finish()
+                }
+                .show()
+                .setOnDismissListener {
+                    finish()
+                }
     }
 
     private fun goneLoading() {
         if (null != loading) {
             runOnUiThread({
-                loading!!.dismiss()
+                loading!!.hide()
             })
         }
     }

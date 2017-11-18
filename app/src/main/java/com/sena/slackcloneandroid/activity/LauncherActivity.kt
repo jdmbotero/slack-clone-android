@@ -3,6 +3,7 @@ package com.sena.slackcloneandroid.activity
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import com.sena.slackcloneandroid.App
 import com.sena.slackcloneandroid.R
 
 class LauncherActivity : AppCompatActivity() {
@@ -16,7 +17,13 @@ class LauncherActivity : AppCompatActivity() {
 
     private fun delay() {
         Handler().postDelayed({
-            startActivity(LoginActivity.newIntent(this))
+
+            if (null != (application as App).preferences!!.getUser()) {
+                startActivity(HomeActivity.newIntent(this))
+            } else {
+                startActivity(LoginActivity.newIntent(this))
+            }
+
             finish()
         }, 1800)
     }

@@ -1,11 +1,11 @@
 package com.sena.slackcloneandroid.activity
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeProgressDialog
 import com.sena.slackcloneandroid.App
 import com.sena.slackcloneandroid.R
 import com.sena.slackcloneandroid.api.ApiClient
@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-    var loading: ProgressDialog? = null
+    private var loading: AwesomeProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +45,8 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 goneLoading()
                 if (response.isSuccessful) {
-                    val user = response.body()
-                    (application as App).preferences!!.setUser(user)
-                    Toast.makeText(this@LoginActivity, "login successful", Toast.LENGTH_LONG).show()
+                    (application as App).preferences!!.setUser(response.body())
+                    goToHome()
                 } else {
                     Toast.makeText(this@LoginActivity, "Error in the request", Toast.LENGTH_LONG).show()
                 }
@@ -58,14 +57,13 @@ class LoginActivity : AppCompatActivity() {
                 t.printStackTrace()
             }
         })
-
     }
 
     private fun validateLogin(): Boolean {
         var isValid = true
         val fields = arrayOf(textUsername, textPassword)
         fields.forEach { field ->
-            if ("" == field.text.toString()) {
+            if (field.text.toString().isEmpty()) {
                 isValid = false
                 field.error = "This Field is required"
             }
@@ -75,16 +73,25 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        loading = ProgressDialog.show(this, "Loading",
-                "Loading. Please wait...", true)
+        loading = AwesomeProgressDialog(this)
+                .setTitle("Login")
+                .setMessage("Loading...")
+                .setColoredCircle(R.color.colorPrimary)
+                .setCancelable(false)
+
+        loading!!.show()
     }
 
     private fun goneLoading() {
         if (null != loading) {
             runOnUiThread({
-                loading!!.dismiss()
+                loading!!.hide()
             })
         }
+    }
+
+    private fun goToHome() {
+        startActivity(HomeActivity.newIntent(this))
     }
 
     companion object {

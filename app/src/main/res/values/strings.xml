@@ -11,4 +11,8 @@
 
     <string name="sign_up_question">Don\'t have a account?</string>
     <string name="sign_in_question">Already have an account?</string>
+
+    <string name="dashboard">Dashboard</string>
+    <string name="channels">Channels</string>
+    <string name="messages">Messages</string>
 </resources>

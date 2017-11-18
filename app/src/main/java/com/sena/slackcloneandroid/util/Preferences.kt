@@ -12,7 +12,7 @@ class Preferences(private val context: Context) {
         editor.apply()
     }
 
-    fun getUser(): User {
+    fun getUser(): User? {
         val sharedPref = context.getSharedPreferences(context.packageName + ".preferences", Context.MODE_PRIVATE)
         return User.fromString(sharedPref.getString("user", ""))
     }
