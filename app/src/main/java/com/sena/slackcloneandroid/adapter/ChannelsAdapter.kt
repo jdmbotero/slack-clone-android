@@ -8,7 +8,7 @@ import com.sena.slackcloneandroid.adapter.viewholder.ChannelViewHolder
 import com.sena.slackcloneandroid.model.Channel
 import com.sena.slackcloneandroid.model.Data
 
-class ChannelsAdapter constructor(items: List<Data<Channel>>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChannelsAdapter(items: List<Data<Channel>>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items: List<Data<Channel>> = items
     set(items) {

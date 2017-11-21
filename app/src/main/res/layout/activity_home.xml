@@ -49,7 +49,6 @@
                 android:layout_height="60dp"
                 android:background="@drawable/bg_initials"
                 android:gravity="center"
-                android:text="DM"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
@@ -60,7 +59,6 @@
                 android:layout_marginStart="20dp"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="Daniel Morales"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -104,10 +102,17 @@
             android:layout_height="1dp"
             android:background="@color/colorPrimaryDark" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listChannels"
+        <lumenghz.com.pullrefresh.PullToRefreshView
+            android:id="@+id/pullToRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listChannels"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </lumenghz.com.pullrefresh.PullToRefreshView>
 
     </LinearLayout>
 

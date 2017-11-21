@@ -85,13 +85,18 @@ class LoginActivity : AppCompatActivity() {
     private fun goneLoading() {
         if (null != loading) {
             runOnUiThread({
-                loading!!.hide()
+                if(!isFinishing) {
+                    loading!!.hide()
+                }
             })
         }
     }
 
     private fun goToHome() {
-        startActivity(HomeActivity.newIntent(this))
+        if(!isFinishing) {
+            startActivity(HomeActivity.newIntent(this))
+            finish()
+        }
     }
 
     companion object {

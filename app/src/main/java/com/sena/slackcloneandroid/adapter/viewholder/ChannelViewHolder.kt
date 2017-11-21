@@ -5,9 +5,8 @@ import android.view.View
 import android.widget.TextView
 import com.sena.slackcloneandroid.R
 
-class ChannelViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
+class ChannelViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     var textName: TextView = view.findViewById(R.id.textName)
     var textDescription: TextView = view.findViewById(R.id.textDescription)
-
 }

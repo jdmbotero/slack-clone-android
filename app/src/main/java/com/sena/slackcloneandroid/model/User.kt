@@ -32,7 +32,7 @@ class User {
     }
 
     companion object {
-        fun fromString(user: String): User {
+        fun fromString(user: String): User? {
             return Gson().fromJson<User>(user, User::class.java)
         }
     }

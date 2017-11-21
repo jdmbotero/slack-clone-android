@@ -22,6 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class HomeActivity : AppCompatActivity() {
 
     private var loading: AwesomeProgressDialog? = null
@@ -50,12 +51,16 @@ class HomeActivity : AppCompatActivity() {
         channelsAdapter = ChannelsAdapter(channels)
         listChannels.adapter = channelsAdapter
 
+        pullToRefresh.setOnRefreshListener {
+
+            getChannels()
+        }
+
+        showLoading()
         getChannels()
     }
 
     private fun getChannels() {
-        showLoading()
-
         val call = ApiClient.getClient(user!!.token!!)!!.create(ChannelInterface::class.java).get()
 
         call.enqueue(object : Callback<JsonArray<Channel>> {
@@ -88,11 +93,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun goneLoading() {
-        if (null != loading) {
-            runOnUiThread({
+        runOnUiThread({
+            if (null != loading) {
                 loading!!.hide()
-            })
-        }
+            }
+            pullToRefresh.setRefreshing(false)
+        })
     }
 
     companion object {
