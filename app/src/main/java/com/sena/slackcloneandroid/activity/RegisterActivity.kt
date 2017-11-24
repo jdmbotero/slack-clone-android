@@ -61,6 +61,7 @@ class RegisterActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<JsonObject<User>>, t: Throwable) {
                 goneLoading()
+                Toast.makeText(this@RegisterActivity, "Error in the request", Toast.LENGTH_LONG).show()
                 t.printStackTrace()
             }
         })

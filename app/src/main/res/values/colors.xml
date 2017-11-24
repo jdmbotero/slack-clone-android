@@ -5,6 +5,8 @@
     <color name="colorPrimaryGray">#999999</color>
     <color name="colorAccent">#48a999</color>
 
+    <color name="colorBackground">#FFFFFF</color>
+
     <color name="colorPrimaryText">#fff</color>
     <color name="colorPrimaryTextDark">#333333</color>
 </resources>

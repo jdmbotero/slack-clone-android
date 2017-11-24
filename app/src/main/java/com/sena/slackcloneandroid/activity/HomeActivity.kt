@@ -13,12 +13,14 @@ import com.sena.slackcloneandroid.adapter.ChannelsAdapter
 import com.sena.slackcloneandroid.api.ApiClient
 import com.sena.slackcloneandroid.api.endpoint.CustomInterface
 import com.sena.slackcloneandroid.api.endpoint.UserInterface
+import com.sena.slackcloneandroid.dialog.NewChannelDialog
 import com.sena.slackcloneandroid.model.*
 import com.sena.slackcloneandroid.util.Utils
 import kotlinx.android.synthetic.main.activity_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 
 class HomeActivity : AppCompatActivity() {
@@ -43,9 +45,17 @@ class HomeActivity : AppCompatActivity() {
         textInitials.text = Utils.getInitials(user?.attributes?.username!!)
 
         buttonLogout.setOnClickListener {
-            (application as App).preferences!!.setUser(null)
+            (application as App).preferences?.setUser(null)
             startActivity(LoginActivity.newIntent(this))
             finish()
+        }
+
+        buttonAdd.setOnClickListener {
+            val newChannelDialog = NewChannelDialog.newInstance()
+            newChannelDialog.show(fragmentManager, "new channel dialog")
+            newChannelDialog.setOnDismissListener {
+                getChannels()
+            }
         }
 
         val layoutManager = LinearLayoutManager(this)
@@ -78,8 +88,10 @@ class HomeActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<JsonObject<User>>, t: Throwable) {
-                goneLoading()
                 t.printStackTrace()
+
+                goneLoading()
+                Toast.makeText(this@HomeActivity, "Error in the request", Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -100,8 +112,10 @@ class HomeActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<JsonArray<Channel>>, t: Throwable) {
-                goneLoading()
                 t.printStackTrace()
+
+                goneLoading()
+                Toast.makeText(this@HomeActivity, "Error in the request", Toast.LENGTH_LONG).show()
             }
         })
     }

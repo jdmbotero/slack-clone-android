@@ -88,40 +88,6 @@
             android:layout_height="1dp"
             android:background="@color/colorPrimaryDark" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonChannel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:text="@string/channels"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/buttonMessages"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryGray"
-                android:text="@string/messages"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimaryDark" />
-
         <lumenghz.com.pullrefresh.PullToRefreshView
             android:id="@+id/pullToRefresh"
             android:layout_width="match_parent"

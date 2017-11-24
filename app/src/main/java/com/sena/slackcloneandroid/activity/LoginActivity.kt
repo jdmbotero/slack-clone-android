@@ -54,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<User>, t: Throwable) {
                 goneLoading()
+                Toast.makeText(this@LoginActivity, "Error in the request", Toast.LENGTH_LONG).show()
                 t.printStackTrace()
             }
         })

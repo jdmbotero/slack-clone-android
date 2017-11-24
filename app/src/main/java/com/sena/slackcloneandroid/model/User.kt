@@ -27,13 +27,9 @@ class User {
 
     var token: String? = null
 
-    override fun toString(): String {
-        return Gson().toJson(this)
-    }
+    override fun toString(): String = Gson().toJson(this)
 
     companion object {
-        fun fromString(user: String): User? {
-            return Gson().fromJson<User>(user, User::class.java)
-        }
+        fun fromString(user: String): User? = Gson().fromJson<User>(user, User::class.java)
     }
 }

@@ -17,4 +17,10 @@
     <string name="messages">Messages</string>
 
     <string name="logout">Log out</string>
+
+    <string name="new_channel">New channel</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="is_private">Is private?</string>
+    <string name="save">Save</string>
 </resources>

@@ -18,6 +18,10 @@ interface ChannelInterface {
     fun get(): Call<JsonArray<Channel>>
 
     @Headers("Content-Type: application/vnd.api+json")
+    @GET("channels")
+    fun search(@Query("filter[name]") name: String): Call<JsonArray<Channel>>
+
+    @Headers("Content-Type: application/vnd.api+json")
     @GET("channels/{id}")
     fun get(@Path("id") id: String): Call<JsonObject<Channel>>
 
