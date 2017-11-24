@@ -11,11 +11,9 @@ import com.sena.slackcloneandroid.App
 import com.sena.slackcloneandroid.R
 import com.sena.slackcloneandroid.adapter.ChannelsAdapter
 import com.sena.slackcloneandroid.api.ApiClient
-import com.sena.slackcloneandroid.api.endpoint.ChannelInterface
-import com.sena.slackcloneandroid.model.Channel
-import com.sena.slackcloneandroid.model.Data
-import com.sena.slackcloneandroid.model.JsonArray
-import com.sena.slackcloneandroid.model.User
+import com.sena.slackcloneandroid.api.endpoint.CustomInterface
+import com.sena.slackcloneandroid.api.endpoint.UserInterface
+import com.sena.slackcloneandroid.model.*
 import com.sena.slackcloneandroid.util.Utils
 import kotlinx.android.synthetic.main.activity_home.*
 import retrofit2.Call
@@ -27,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
 
     private var loading: AwesomeProgressDialog? = null
 
-    private var user: User? = null
+    private var user: Data<User>? = Data("users", null)
     private var channels: List<Data<Channel>> = ArrayList()
 
     private var channelsAdapter: ChannelsAdapter? = null
@@ -36,13 +34,19 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        user = (application as App).preferences!!.getUser()
+        user?.attributes = (application as App).preferences!!.getUser()
         setUpView()
     }
 
     private fun setUpView() {
-        textUsername.text = user!!.username
-        textInitials.text = Utils.getInitials(user!!.username!!)
+        textUsername.text = user?.attributes?.username
+        textInitials.text = Utils.getInitials(user?.attributes?.username!!)
+
+        buttonLogout.setOnClickListener {
+            (application as App).preferences!!.setUser(null)
+            startActivity(LoginActivity.newIntent(this))
+            finish()
+        }
 
         val layoutManager = LinearLayoutManager(this)
         listChannels.layoutManager = layoutManager
@@ -52,16 +56,37 @@ class HomeActivity : AppCompatActivity() {
         listChannels.adapter = channelsAdapter
 
         pullToRefresh.setOnRefreshListener {
-
             getChannels()
         }
 
         showLoading()
-        getChannels()
+        getUser()
+    }
+
+    private fun getUser() {
+        val call = ApiClient.getClient(user?.attributes?.token!!)!!.create(UserInterface::class.java).get(user?.attributes?.id!!)
+
+        call.enqueue(object : Callback<JsonObject<User>> {
+            override fun onResponse(call: Call<JsonObject<User>>, response: Response<JsonObject<User>>) {
+                goneLoading()
+                if (response.isSuccessful) {
+                    user?.relationships = response.body()?.data?.relationships
+                    getChannels()
+                } else {
+                    Toast.makeText(this@HomeActivity, "Error in the request", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject<User>>, t: Throwable) {
+                goneLoading()
+                t.printStackTrace()
+            }
+        })
     }
 
     private fun getChannels() {
-        val call = ApiClient.getClient(user!!.token!!)!!.create(ChannelInterface::class.java).get()
+        val call = ApiClient.getClient(user?.attributes?.token!!)!!.create(CustomInterface::class.java)
+                .get(user?.relationships?.get("channels")?.links?.related!!)
 
         call.enqueue(object : Callback<JsonArray<Channel>> {
             override fun onResponse(call: Call<JsonArray<Channel>>, response: Response<JsonArray<Channel>>) {

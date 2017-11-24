@@ -10,7 +10,7 @@ class Preferences(private val context: Context) {
     fun setUser(user: User?) {
         val sharedPref = context.getSharedPreferences(context.packageName + ".preferences", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        editor.putString(user_key, user!!.toString())
+        editor.putString(user_key, user?.toString())
         editor.apply()
     }
 

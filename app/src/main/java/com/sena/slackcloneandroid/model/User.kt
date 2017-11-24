@@ -1,7 +1,7 @@
 package com.sena.slackcloneandroid.model
 
 import com.google.gson.Gson
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 class User {
 
@@ -22,7 +22,7 @@ class User {
     var email: String? = null
     var password: String? = null
 
-    @Json(name = "photo-url")
+    @SerializedName("photo-url")
     var photoUrl: String? = null
 
     var token: String? = null

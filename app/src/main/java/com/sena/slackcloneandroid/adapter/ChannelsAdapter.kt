@@ -32,7 +32,7 @@ class ChannelsAdapter(items: List<Data<Channel>>) : RecyclerView.Adapter<Recycle
         val item = items[position]
         val viewHolder = holder as ChannelViewHolder
 
-        viewHolder.textName.text = item.attributes!!.name
-        viewHolder.textDescription.text = item.attributes!!.description
+        viewHolder.textName.text = item.attributes?.name
+        viewHolder.textDescription.text = item.attributes?.description
     }
 }

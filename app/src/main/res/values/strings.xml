@@ -15,4 +15,6 @@
     <string name="dashboard">Dashboard</string>
     <string name="channels">Channels</string>
     <string name="messages">Messages</string>
+
+    <string name="logout">Log out</string>
 </resources>
