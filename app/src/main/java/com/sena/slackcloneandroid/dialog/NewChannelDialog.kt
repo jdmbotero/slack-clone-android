@@ -140,5 +140,6 @@ class NewChannelDialog : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface?) {
         onDismissListener()
+        super.onDismiss(dialog)
     }
 }

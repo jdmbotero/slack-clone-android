@@ -1,6 +1,8 @@
 package com.sena.slackcloneandroid.model
 
-class Data<T : Any>(type: String, attributes: T?) {
+import java.io.Serializable
+
+class Data<T : Any>(type: String, attributes: T?) : Serializable {
 
     var id: String? = null
     var type: String? = type

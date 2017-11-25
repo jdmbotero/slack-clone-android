@@ -23,4 +23,6 @@
     <string name="description">Description</string>
     <string name="is_private">Is private?</string>
     <string name="save">Save</string>
+
+    <string name="search">Search</string>
 </resources>

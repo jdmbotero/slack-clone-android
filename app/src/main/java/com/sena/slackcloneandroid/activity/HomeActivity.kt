@@ -14,6 +14,7 @@ import com.sena.slackcloneandroid.api.ApiClient
 import com.sena.slackcloneandroid.api.endpoint.GeneralInterface
 import com.sena.slackcloneandroid.api.endpoint.UserInterface
 import com.sena.slackcloneandroid.dialog.NewChannelDialog
+import com.sena.slackcloneandroid.dialog.SearchDialog
 import com.sena.slackcloneandroid.model.*
 import com.sena.slackcloneandroid.util.Utils
 import kotlinx.android.synthetic.main.activity_home.*
@@ -50,8 +51,16 @@ class HomeActivity : AppCompatActivity() {
 
         buttonAdd.setOnClickListener {
             val newChannelDialog = NewChannelDialog.newInstance()
-            newChannelDialog.show(fragmentManager, "new channel dialog")
+            newChannelDialog.show(fragmentManager, "dialog")
             newChannelDialog.setOnDismissListener {
+                getChannels()
+            }
+        }
+
+        buttonSearch.setOnClickListener {
+            val searchDialog = SearchDialog.newInstance(user)
+            searchDialog.show(fragmentManager, "dialog")
+            searchDialog.setOnDismissListener {
                 getChannels()
             }
         }
