@@ -11,7 +11,7 @@ import com.sena.slackcloneandroid.App
 import com.sena.slackcloneandroid.R
 import com.sena.slackcloneandroid.adapter.ChannelsAdapter
 import com.sena.slackcloneandroid.api.ApiClient
-import com.sena.slackcloneandroid.api.endpoint.CustomInterface
+import com.sena.slackcloneandroid.api.endpoint.GeneralInterface
 import com.sena.slackcloneandroid.api.endpoint.UserInterface
 import com.sena.slackcloneandroid.dialog.NewChannelDialog
 import com.sena.slackcloneandroid.model.*
@@ -20,8 +20,6 @@ import kotlinx.android.synthetic.main.activity_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-
 
 class HomeActivity : AppCompatActivity() {
 
@@ -97,7 +95,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun getChannels() {
-        val call = ApiClient.getClient(user?.attributes?.token!!)!!.create(CustomInterface::class.java)
+        val call = ApiClient.getClient(user?.attributes?.token!!)!!.create(GeneralInterface::class.java)
                 .get(user?.relationships?.get("channels")?.links?.related!!)
 
         call.enqueue(object : Callback<JsonArray<Channel>> {

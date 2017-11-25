@@ -18,7 +18,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class RegisterActivity : AppCompatActivity() {
 
     private var loading: AwesomeProgressDialog? = null

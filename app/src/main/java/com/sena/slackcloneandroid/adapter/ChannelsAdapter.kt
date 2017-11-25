@@ -16,9 +16,7 @@ class ChannelsAdapter(items: List<Data<Channel>>) : RecyclerView.Adapter<Recycle
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -34,5 +32,10 @@ class ChannelsAdapter(items: List<Data<Channel>>) : RecyclerView.Adapter<Recycle
 
         viewHolder.textName.text = item.attributes?.name
         viewHolder.textDescription.text = item.attributes?.description
+        if(item.attributes?.private!!) {
+            viewHolder.imageLock.setImageResource(R.mipmap.ic_lock)
+        } else {
+            viewHolder.imageLock.setImageResource(R.mipmap.ic_unlock)
+        }
     }
 }
